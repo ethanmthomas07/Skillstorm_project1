@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 public abstract class Product {
 
     @Id
+    @OneToMany
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int productId;
 
