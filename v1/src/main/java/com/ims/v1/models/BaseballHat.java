@@ -2,21 +2,11 @@ package com.ims.v1.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name="Hat")
-public class BaseballHat {
-    
-    @Id
-    @Column
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+public class BaseballHat extends Product{
 
     @Column
     private String size;
@@ -31,25 +21,10 @@ public class BaseballHat {
 
     }
 
-    public BaseballHat(int id, String size, String color, float price){
-        this.id = id;
-        this.size = size;
-        this.color = color;
-        this.price = price;
-    }
-
     public BaseballHat(String size, String color, float price){
         this.size = size;
         this.color = color;
         this.price = price;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getSize() {
@@ -80,7 +55,6 @@ public class BaseballHat {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + id;
         result = prime * result + ((size == null) ? 0 : size.hashCode());
         result = prime * result + ((color == null) ? 0 : color.hashCode());
         result = prime * result + Float.floatToIntBits(price);
@@ -96,8 +70,6 @@ public class BaseballHat {
         if (getClass() != obj.getClass())
             return false;
         BaseballHat other = (BaseballHat) obj;
-        if (id != other.id)
-            return false;
         if (size == null) {
             if (other.size != null)
                 return false;
@@ -115,8 +87,7 @@ public class BaseballHat {
 
     @Override
     public String toString() {
-        return "BaseballHat [id=" + id + ", size=" + size + ", color=" + color + ", price=" + price + "]";
+        return "BaseballHat [size=" + size + ", color=" + color + ", price=" + price + "]";
     }
-
     
 }

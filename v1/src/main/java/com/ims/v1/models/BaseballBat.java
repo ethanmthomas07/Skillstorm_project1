@@ -1,25 +1,15 @@
 package com.ims.v1.models;
 
-import org.hibernate.annotations.ColumnTransformer;
+
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name="Bats")
-public class BaseballBat {
+public class BaseballBat extends Product{
     
-    @Id
-    @Column
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
     @Column
     private int length;
     
@@ -39,14 +29,6 @@ public class BaseballBat {
 
     }
 
-    public BaseballBat(int id, int length, int weight, String brand, float price) {
-        this.id = id;
-        this.length = length;
-        this.weight = weight;
-        this.brand = brand;
-        this.price = price;
-    }
-
     public BaseballBat(int length, int weight, String brand, float price) {
         this.length = length; 
         this.weight = weight;
@@ -54,13 +36,6 @@ public class BaseballBat {
         this.price = price;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public int getLength() {
         return length;
@@ -98,7 +73,6 @@ public class BaseballBat {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + id;
         result = prime * result + length;
         result = prime * result + weight;
         result = prime * result + ((brand == null) ? 0 : brand.hashCode());
@@ -115,8 +89,6 @@ public class BaseballBat {
         if (getClass() != obj.getClass())
             return false;
         BaseballBat other = (BaseballBat) obj;
-        if (id != other.id)
-            return false;
         if (length != other.length)
             return false;
         if (weight != other.weight)
@@ -133,10 +105,8 @@ public class BaseballBat {
 
     @Override
     public String toString() {
-        return "BaseballBat [id=" + id + ", length=" + length + ", weight=" + weight + ", brand=" + brand + ", price="
-                + price + "]";
+        return "BaseballBat [length=" + length + ", weight=" + weight + ", brand=" + brand + ", price=" + price + "]";
     }
-
     
 
     

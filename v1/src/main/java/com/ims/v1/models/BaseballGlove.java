@@ -2,21 +2,11 @@ package com.ims.v1.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "BaseballGlove")
-public class BaseballGlove {
-
-    @Id
-    @Column
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+public class BaseballGlove extends Product{
 
     @Column
     private String brand;
@@ -37,27 +27,11 @@ public class BaseballGlove {
 
     }
 
-    public BaseballGlove(int id, String brand, float size, String color, float price) {
-        this.id = id;
-        this.brand = brand;
-        this.size = size;
-        this.color = color;
-        this.price = price;
-    }
-
     public BaseballGlove(String brand, float size, String color, float price) {
         this.brand = brand;
         this.size = size;
         this.color = color;
         this.price = price;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getBrand() {
@@ -96,7 +70,6 @@ public class BaseballGlove {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + id;
         result = prime * result + ((brand == null) ? 0 : brand.hashCode());
         result = prime * result + Float.floatToIntBits(size);
         result = prime * result + ((color == null) ? 0 : color.hashCode());
@@ -113,8 +86,6 @@ public class BaseballGlove {
         if (getClass() != obj.getClass())
             return false;
         BaseballGlove other = (BaseballGlove) obj;
-        if (id != other.id)
-            return false;
         if (brand == null) {
             if (other.brand != null)
                 return false;
@@ -134,9 +105,9 @@ public class BaseballGlove {
 
     @Override
     public String toString() {
-        return "BaseballGlove [id=" + id + ", brand=" + brand + ", size=" + size + ", color=" + color + ", price="
-                + price + "]";
+        return "BaseballGlove [brand=" + brand + ", size=" + size + ", color=" + color + ", price=" + price + "]";
     }
 
+    
     
 }

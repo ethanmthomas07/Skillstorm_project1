@@ -2,21 +2,11 @@ package com.ims.v1.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name="ball")
-public class BaseballBall {
-    
-    @Id
-    @Column
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+public class BaseballBall extends Product{
 
     @Column
     private double weight;
@@ -37,25 +27,10 @@ public class BaseballBall {
 
     }
 
-    public BaseballBall (int id, double weight, String brand, float price) {
-        this.id = id;
-        this.weight = weight;
-        this.brand = brand;
-        this.price = price;
-    }
-
     public BaseballBall (double weight, String brand, float price) {
         this.weight = weight;
         this.brand = brand;
         this.price = price;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public double getWeight() {
@@ -94,7 +69,6 @@ public class BaseballBall {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + id;
         long temp;
         temp = Double.doubleToLongBits(weight);
         result = prime * result + (int) (temp ^ (temp >>> 32));
@@ -113,8 +87,6 @@ public class BaseballBall {
         if (getClass() != obj.getClass())
             return false;
         BaseballBall other = (BaseballBall) obj;
-        if (id != other.id)
-            return false;
         if (Double.doubleToLongBits(weight) != Double.doubleToLongBits(other.weight))
             return false;
         if (type == null) {
@@ -134,8 +106,7 @@ public class BaseballBall {
 
     @Override
     public String toString() {
-        return "BaseballBall [id=" + id + ", weight=" + weight + ", type=" + type + ", brand=" + brand + ", price="
-                + price + "]";
+        return "BaseballBall [weight=" + weight + ", type=" + type + ", brand=" + brand + ", price=" + price + "]";
     }
 
     
