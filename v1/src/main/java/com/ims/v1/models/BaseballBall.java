@@ -1,10 +1,12 @@
 package com.ims.v1.models;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
 @Entity
+@DiscriminatorValue("BALL")
 @Table(name="ball")
 public class BaseballBall extends Product{
 
@@ -12,7 +14,7 @@ public class BaseballBall extends Product{
     private double weight;
     
     @Column
-    private String type; // Training, Game, Rubber
+    private String ballType; // Training, Game, Rubber
 
     @Column
     private String brand;
@@ -41,12 +43,12 @@ public class BaseballBall extends Product{
         this.weight = weight;
     }
 
-    public String getType() {
-        return type;
+    public String getBallType() {
+        return ballType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setBallType(String ballType) {
+        this.ballType = ballType;
     }
 
     public String getBrand() {
@@ -72,7 +74,7 @@ public class BaseballBall extends Product{
         long temp;
         temp = Double.doubleToLongBits(weight);
         result = prime * result + (int) (temp ^ (temp >>> 32));
-        result = prime * result + ((type == null) ? 0 : type.hashCode());
+        result = prime * result + ((ballType == null) ? 0 : ballType.hashCode());
         result = prime * result + ((brand == null) ? 0 : brand.hashCode());
         result = prime * result + Float.floatToIntBits(price);
         return result;
@@ -89,10 +91,10 @@ public class BaseballBall extends Product{
         BaseballBall other = (BaseballBall) obj;
         if (Double.doubleToLongBits(weight) != Double.doubleToLongBits(other.weight))
             return false;
-        if (type == null) {
-            if (other.type != null)
+        if (ballType == null) {
+            if (other.ballType != null)
                 return false;
-        } else if (!type.equals(other.type))
+        } else if (!ballType.equals(other.ballType))
             return false;
         if (brand == null) {
             if (other.brand != null)
@@ -106,7 +108,7 @@ public class BaseballBall extends Product{
 
     @Override
     public String toString() {
-        return "BaseballBall [weight=" + weight + ", type=" + type + ", brand=" + brand + ", price=" + price + "]";
+        return "BaseballBall [weight=" + weight + ", ballType=" + ballType + ", brand=" + brand + ", price=" + price + "]";
     }
 
     

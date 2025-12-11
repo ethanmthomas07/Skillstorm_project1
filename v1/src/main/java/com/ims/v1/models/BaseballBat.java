@@ -3,10 +3,12 @@ package com.ims.v1.models;
 
 
 import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
 @Entity
+@DiscriminatorValue("BAT")
 @Table(name="Bats")
 public class BaseballBat extends Product{
     
@@ -65,7 +67,7 @@ public class BaseballBat extends Product{
         return price;
     }
 
-    public void setBrand(float price) {
+    public void setPrice(float price) {
         this.price = price;
     }
 

@@ -1,5 +1,12 @@
 package com.ims.v1.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,8 +20,6 @@ import jakarta.persistence.Table;
 public class Warehouse {
     
     @Id
-    @Column
-    @OneToMany
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
@@ -27,21 +32,24 @@ public class Warehouse {
     @Column
     private int capacity;
 
-    // placeholder
-    // another field here
+    @OneToMany(mappedBy = "warehouse", cascade = CascadeType.ALL, orphanRemoval = true)
+    //@JsonManagedReference
+    @JsonIgnore
+    private List<Product> products = new ArrayList<>();
 
     public Warehouse() {
 
     }
 
-    public Warehouse(int id, String location, String name, int capacity){
+    public Warehouse(int id, String location, String name, int capacity, List<Product> products){
         this.id = id;
         this.location = location;
         this.name = name; 
         this.capacity = capacity;
+        this.products = products;
     }
 
-    public Warehouse(String location, String name, int capacity){
+    public Warehouse(String location, String name, int capacity, List<Product> products){
         this.location = location;
         this.name = name;
         this.capacity = capacity;
@@ -79,6 +87,19 @@ public class Warehouse {
         this.capacity = capacity;
     }
 
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    // could be wrong
+    public void addProduct(Product product) throws Exception{
+        if (products.size() + 1 < capacity ) {
+            products.add(product);
+        }else {
+            // implement logic
+            throw(new Exception("Warehouse is at capacity"));
+        }
+    }
     @Override
     public int hashCode() {
         final int prime = 31;

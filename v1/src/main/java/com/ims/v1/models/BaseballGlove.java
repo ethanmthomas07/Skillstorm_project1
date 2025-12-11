@@ -1,10 +1,12 @@
 package com.ims.v1.models;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
 @Entity
+@DiscriminatorValue("GLOVE")
 @Table(name = "BaseballGlove")
 public class BaseballGlove extends Product{
 
