@@ -58,8 +58,9 @@ public class ProductService {
     }
 
     public Product updateProduct(int id, Product updated) {
-        Product product = productRepository.findProductById(id);
-        //.orElseThrow(() -> new NotFoundException("Product not found"));
+        // may need handling here
+        Product product = productRepository.findById(id).get();
+            // .orElseThrow(); // throws no such element
         if (product != null){
             
             // Update common fields

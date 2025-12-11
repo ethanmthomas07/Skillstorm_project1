@@ -19,7 +19,7 @@ public class WarehouseService {
     }
     
     public List<Warehouse> findByMinimumCapacity(int capacity) {
-        return warehouseRepository.findByMinimumCapacity(capacity);
+        return warehouseRepository.findByCapacityLessThanEqual(capacity);
         
     }
 
@@ -38,7 +38,7 @@ public class WarehouseService {
     }
 
     public List<Warehouse> findByMaximumCapacity(int capacity) {
-        return warehouseRepository.findByMaximumCapacity(capacity);
+        return warehouseRepository.findByCapacityGreaterThanEqual(capacity);
     }
 
     public Warehouse findWarehouseByName(String name) {
