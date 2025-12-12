@@ -4,26 +4,27 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.ims.v1.models.Product;
+import com.ims.v1.models.Warehouse;
 
-import jakarta.transaction.Transactional;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer>{
 
-    @Query("Select * from Products p where p.name = :name")
+    @Query("Select p from Product p where p.name = :name")
     Optional<Product> findProductByName(@Param("productName") String name);
 
-    @Query("Select * from Products p where p.tpye = :type")
-    Optional<List<Product>> findProductByType(@Param("productType") String type);
+    // @Query("Select p from Product p where p.tpye = :type")
+    @Query("Select p from Product p where p.productType = :productType")
+    Optional<List<Product>> findProductByType(@Param("productType") String productType);
 
-    @Query("Select * from Products p where p.warehouseId = :warehouseId")
-    List<Product> findByWarehouseId(@Param("warehouseId") int warehouseId);
+    @Query("Select p from Product p where p.warehouse = :warehouse")
+    List<Product> findByWarehouseId(@Param("warehouse") Warehouse warehouse);
+
 
     // allegedly dont need update methods due to type subtype structure and .save() handles it
 

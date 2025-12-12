@@ -3,7 +3,7 @@ package com.ims.v1.services;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.stereotype.Service;
 
 import com.ims.v1.models.BaseballBall;
 import com.ims.v1.models.BaseballBat;
@@ -14,6 +14,7 @@ import com.ims.v1.models.Warehouse;
 import com.ims.v1.repositories.ProductRepository;
 import com.ims.v1.repositories.WarehouseRepository;
 
+@Service
 public class ProductService {
 
     private final ProductRepository productRepository;
@@ -42,8 +43,8 @@ public class ProductService {
 
     // removes product from warehouse and product table
     public void deleteProduct(Product product) {
-        int prodIndex = product.getWarehouse().getProducts().lastIndexOf(product);
-        product.getWarehouse().getProducts().remove(prodIndex);
+        // need a way to remoce product from warehouse list
+
         productRepository.deleteById(product.getProductId()); 
     }
 
@@ -103,9 +104,7 @@ public class ProductService {
     }
 
     // This may be bad practice
-    public Product addProductToWarehouse(Product product, int warehouseId) {
-        Warehouse warehouse = warehouseRepository.findById(warehouseId)
-                .orElseThrow(() -> new RuntimeException("Warehouse not found"));
+    public Product addProductToWarehouse(Product product, Warehouse warehouse) {
         try{
             warehouse.addProduct(product);
             product.setWarehouse(warehouse);

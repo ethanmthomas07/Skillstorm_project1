@@ -1,5 +1,6 @@
 package com.ims.v1.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
@@ -19,24 +20,26 @@ import jakarta.persistence.*;
 })
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name="product_type")  
+@DiscriminatorColumn(name="product_type", discriminatorType = DiscriminatorType.STRING)  
 @Table(name = "Products")
 public abstract class Product {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
     private int productId;
 
+    @Column(name="name")
     private String name;
 
-    @Column(name = "product_type")
+    @Column(name = "product_type", insertable = false, updatable = false)
     private String productType;
 
     @ManyToOne
     @JoinColumn(name = "warehouse_id")
-    @JsonIgnore // prevent infinite recursion in JSON
+    @JsonIgnoreProperties("products") // prevent infinite recursion in JSON
     private Warehouse warehouse;
-
+    
     public Product () {
 
     }

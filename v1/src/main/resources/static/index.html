@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warehouse Management System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Warehouse Management Dashboard</h1>
+        <nav>
+            <button id="showWarehousesBtn">Warehouses</button>
+            <button id="showInventoryBtn">Inventory</button>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Warehouse Section -->
+        <section id="warehouseSection" class="active">
+            <h2>Warehouses</h2>
+            <button id="addWarehouseBtn">Add New Warehouse</button>
+            <input type="text" id="warehouseSearch" placeholder="Search Warehouses...">
+            <table id="warehouseTable">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Location</th>
+                        <th>Max Capacity</th>
+                        <th>Current Capacity</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </section>
+
+        <!-- Inventory Section -->
+        <section id="inventorySection">
+            <h2>Inventory</h2>
+            <div class="controls">
+                <select id="inventoryWarehouseSelect">
+                    <option value="">Select Warehouse</option>
+                </select>
+                <button id="addInventoryBtn">Add Inventory</button>
+                <input type="text" id="inventorySearch" placeholder="Search Inventory...">
+            </div>
+            <table id="inventoryTable">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>SKU</th>
+                        <th>Description</th>
+                        <th>Quantity</th>
+                        <th>Location</th>
+                        <th>Warehouse</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </section>
+    </main>
+
+    <!-- Modal Dialog -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

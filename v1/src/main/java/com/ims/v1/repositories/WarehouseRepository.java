@@ -4,7 +4,6 @@ import com.ims.v1.models.Warehouse;
 import java.util.List;
 import java.util.Optional;
 
-import org.hibernate.dialect.lock.OptimisticForceIncrementLockingStrategy;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -22,7 +21,7 @@ public interface WarehouseRepository extends JpaRepository<Warehouse, Integer>{
     // public List<Warehouse> findByMaximumCapacity(int capacity);
     public List<Warehouse> findByCapacityGreaterThanEqual(int capacity);
 
-    @Query("Select * from Warehouses w where w.name = :name")
+    @Query("Select w from Warehouse w where w.name = :name")
     public Warehouse findByName(@Param("warehouseName") String name);
 
     @Query("Update Warehouse w set w.capacity = :newCapacity where id = :id")
@@ -30,12 +29,12 @@ public interface WarehouseRepository extends JpaRepository<Warehouse, Integer>{
     @Transactional
     public Optional<Warehouse> updateCapacity(@Param("warehouseId") int id, @Param("warehouseCapacity") int newCapacity);
 
-    @Query("Updates Warehouse w set w.name = :newName where id = :id")
+    @Query("Update Warehouse w set w.name = :newName where id = :id")
     @Modifying
     @Transactional
     public void updateName(@Param("warehouseId") int id, @Param("warehouseName") String newName);
 
-    @Query("update Warehouse w set w.location = :newLocation where id = :id")
+    @Query("Update Warehouse w set w.location = :newLocation where id = :id")
     @Modifying
     @Transactional
     public void updateLocation(@Param("warehouseId") int id, @Param("warehouseLocation") String newLocation);

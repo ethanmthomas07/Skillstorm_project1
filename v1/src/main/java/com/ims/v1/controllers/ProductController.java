@@ -12,15 +12,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ims.v1.models.Product;
-import com.ims.v1.models.Warehouse;
 import com.ims.v1.services.ProductService;
 
 @RestController
-@RequestMapping("/products")
-@CrossOrigin("http://127.0.0.1:5500/products")
+@RequestMapping("/Products")
+@CrossOrigin("*") // i know this is a security issue but not worried rn
 public class ProductController {
     
     private final ProductService productService;
@@ -31,13 +31,14 @@ public class ProductController {
 
     // Get all products
     @GetMapping
-    public ResponseEntity<List<Product>> findAllProducts() {
-        try{
-            List<Product> products = productService.findAllProducts();
-            return new ResponseEntity<>(products, HttpStatus.OK);
-        } catch (Exception e) {
-            return ResponseEntity.internalServerError().header("Message", "Opps something went wrong").build();
-        }
+    public ResponseEntity<List<Product>> findAllProducts(@RequestParam(required = false) String param) {
+        // try{
+        //     List<Product> products = productService.findAllProducts();
+        //     return new ResponseEntity<>(products, HttpStatus.OK);
+        // } catch (Exception e) {
+        //     return ResponseEntity.internalServerError().header("Message", "Opps something went wrong").build();
+        // }
+        return new ResponseEntity<>(productService.findAllProducts(), HttpStatus.OK);
     }
 
     // Get product by ID
@@ -70,7 +71,7 @@ public class ProductController {
         }
     }
 
-    @GetMapping("/name/{name}")
+    @GetMapping("/type/{type}")
     public ResponseEntity<List<Product>> findProductByType (@PathVariable String type) {
         try {
             List<Product> products = productService.findProductByType(type);

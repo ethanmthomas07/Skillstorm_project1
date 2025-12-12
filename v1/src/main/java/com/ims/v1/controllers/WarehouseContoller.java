@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
-@RequestMapping("/warehouses")
-@CrossOrigin("http://127.0.0.1:5500/warehouses")
+@RequestMapping("/Warehouses")
+@CrossOrigin("*") // i know this is a security issue but not worried rn
 public class WarehouseContoller {
     
     private final WarehouseService warehouseService;
@@ -30,7 +30,7 @@ public class WarehouseContoller {
     }
 
     @GetMapping
-    public ResponseEntity<List<Warehouse>> findAllWarehouses (@RequestParam String param) {
+    public ResponseEntity<List<Warehouse>> findAllWarehouses (@RequestParam(required = false) String param) {
         try{
             List<Warehouse> warehouses = warehouseService.findAllWarehouses();
             return new ResponseEntity<>(warehouses, HttpStatus.OK);
@@ -53,7 +53,7 @@ public class WarehouseContoller {
         }
     }
 
-    @GetMapping("/capacity/{capacity}")
+    @GetMapping("/minCapacity/{capacity}")
     public ResponseEntity<List<Warehouse>> findByMinimumCapacity(@PathVariable int capacity) {
         try {
             List<Warehouse> warehouses = warehouseService.findByMinimumCapacity(capacity);
@@ -63,7 +63,7 @@ public class WarehouseContoller {
         }
     }
 
-    @GetMapping("/capacity/{capacity}")
+    @GetMapping("/maxCapacity/{capacity}")
     public ResponseEntity<List<Warehouse>> findByMaximumCapacity(@PathVariable int capacity) {
         try {
             List<Warehouse> warehouses = warehouseService.findByMaximumCapacity(capacity);
@@ -100,6 +100,7 @@ public class WarehouseContoller {
             return ResponseEntity.internalServerError().header("Message", "Oops, something went wrong").build();
         }
     }
+    
 
     @PostMapping
     public ResponseEntity<Warehouse> createWarehouse(@RequestBody Warehouse warehouse) {
